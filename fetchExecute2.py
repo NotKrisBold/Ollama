@@ -48,13 +48,12 @@ class ScenarioCalculator:
         table = {}
         for item in names:
             table[item["name"]] = {}
-
-        for i in range(0, len(data)):
-            for j in range(0, len(data[i]["nodeImpactResult"]["impactList"])):
-                for item in names:
+            for i in range(0, len(data)):
+                for j in range(0, len(data[i]["nodeImpactResult"]["impactList"])):
                     if item["refId"] == data[i]["nodeImpactResult"]["impactList"][j]["refId"]:
-                        table[item["name"]][data[i]["nodeImpactResult"]["name"]] = \
-                        data[i]["nodeImpactResult"]["impactList"][j]["value"]
+                        value_unit = (data[i]["nodeImpactResult"]["impactList"][j]["value"],
+                                      data[i]["nodeImpactResult"]["impactList"][j]["unit"])
+                        table[item["name"]][data[i]["nodeImpactResult"]["name"]] = value_unit
 
         df = pd.DataFrame(table)
         df = df.transpose()
